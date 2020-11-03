@@ -1,0 +1,202 @@
+/* stylesheet
+–––––––––––––––––––––––––––––––––––––––––––––––––– */
+
+body{
+
+        background-color: #e6e6ff;
+        padding: 5px 5px 5px 5px;
+        width: 98%;
+        height: 98%;
+        margin: auto;
+        font-size: 30px;
+
+}
+
+
+h1{
+
+        text-align: center;
+        display: inline-block;
+        float: right;
+        margin-top: 50px;
+        margin-right: 300px;
+        font-size: 30px;
+
+}
+
+h3{
+        text-align: center;
+}
+
+img{
+
+        width: 400px;
+        height: 110%;
+        border-radius: 5px;
+        float: center;
+        margin-bottom: -8px;
+}
+
+
+
+.head{
+
+        background-color: white;
+        border-radius: 5px;
+        box-shadow: 5px 10px 18px #888888;
+}
+
+
+
+.six.columns{
+
+        background-color: white;
+        border-radius: 15px;
+        box-shadow: 5px 10px 18px #888888;
+        padding: 5px 5px 5px 5px;
+        width: 100%;
+        margin-bottom: 15px;
+    
+}
+
+
+.twelve.columns{
+
+        background-color: white;
+        border-radius: 15px;
+        box-shadow: 5px 10px 18px #888888;
+        padding: 5px 5px 5px 5px;
+        margin-bottom: 15px;
+        width: 100%;
+
+}
+
+
+/* Grid
+–––––––––––––––––––––––––––––––––––––––––––––––––– */
+.container {
+  position: relative;
+  width: 100%;
+  margin: 0 auto;
+  padding: 0px 20px;
+  box-sizing: border-box;}
+.column,
+.columns {
+  width: 100%;
+  float: left;
+  box-sizing: border-box;}
+
+
+/* Tables
+–––––––––––––––––––––––––––––––––––––––––––––––––– */
+table {
+  border-collapse: collapse;
+  margin-left: auto;
+  margin-right: auto;
+  width: 90%;
+}
+th:not(.CalendarDay),
+td:not(.CalendarDay) {
+  padding: 12px 15px;
+  text-align: left;
+  border-bottom: 1px solid #E1E1E1; }
+th:first-child:not(.CalendarDay),
+td:first-child:not(.CalendarDay) {
+  padding-left: 0; }
+th:last-child:not(.CalendarDay),
+td:last-child:not(.CalendarDay) {
+  padding-right: 0; }
+
+
+/* Media Queries
+–––––––––––––––––––––––––––––––––––––––––––––––––– */
+/*
+Note: The best way to structure the use of media queries is to create the queries
+near the relevant code. For example, if you wanted to change the styles for buttons
+on small devices, paste the mobile query code up in the buttons section and style it
+there.
+*/
+
+
+/* Larger than mobile */
+@media (min-width: 1000px) {
+
+   .container{
+
+            width: 90%;
+            padding: 0px 20px;
+            margin: 0 auto;
+    }
+    .six.columns{
+
+            width: 48%;
+            height: 100%;
+            margin-right: 11px;
+            margin-left: 10px;
+    
+    }
+    .twelve.columns{
+            width: 98%;
+            margin-left: 9px;
+    }
+    body{
+
+            background-color: #e6e6ff;
+            padding: 5px 5px 5px 5px;
+            width: 98%;
+            height: 98%;
+            margin: auto;
+            font-size: 15px;
+
+    }
+
+
+    h1{
+
+            text-align: center;
+            display: inline-block;
+            float: right;
+            margin-top: 50px;
+            margin-right: 300px;
+
+    }   
+
+    h3{
+            text-align: center;
+    }
+
+    img{
+
+            width: 400px;
+            height: 100%;
+            border-radius: 5px;
+            float: center;
+            margin-bottom: -5px;
+    }
+
+
+
+    .head{
+
+            background-color: white;
+            border-radius: 5px;
+            box-shadow: 5px 10px 18px #888888;
+    }
+
+
+}
+
+/* Larger than phablet (also point when grid becomes active) */
+@media (min-width: 550px) {}
+
+/* Larger than tablet */
+@media (min-width: 750px) {}
+
+/* Larger than desktop */
+@media (min-width: 1000px) {}
+
+/* Larger than Desktop HD */
+@media (min-width: 1200px) {}
+
+
+

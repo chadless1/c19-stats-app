@@ -10,13 +10,8 @@ import dash_core_components as dcc
 import dash_html_components as html
 from dash.dependencies import Input, Output
 
-import os
-# Filenae Variable
-current_file = sorted(os.listdir('data'))[-1]
-# Read CSV Data
-df_states = pd.read_csv('data/{}'.format(current_file))
-
-df_states = df_states.iloc[:,[0,1,3,4]]
+# Read csv file from github
+df_states = pd.read_html('https://github.com/nytimes/covid-19-data/blob/master/us-states.csv')[0]
 
 # Create Date objects
 

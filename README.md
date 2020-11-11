@@ -2,7 +2,7 @@
 
 Covid-19 Data Tracker
 
-Data pulled from nytimes githubi\
+Data pulled from nytimes github\
 [github/nytimes](https://github.com/nytimes/covid-19-data)
 
 Deployed via Heroku\

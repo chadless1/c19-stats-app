@@ -28,6 +28,12 @@ h3{
         text-align: center;
 }
 
+h4{
+        text-align: center;
+        padding-top: 10px;
+
+}
+
 img{
 
         width: 400px;
@@ -37,6 +43,10 @@ img{
         margin-bottom: -8px;
 }
 
+p{
+        text-align: center;
+
+}
 
 
 .head{
@@ -59,7 +69,16 @@ img{
     
 }
 
+.five.columns{
 
+        background-color: white;
+        border-radius: 15px;
+        box-shadow: 5px 10px 18px #888888;
+        padding: 5px 5px 5px 5px;
+        margin-bottom: 15px;
+        width: 100%;
+
+}
 .twelve.columns{
 
         background-color: white;
@@ -71,12 +90,36 @@ img{
 
 }
 
+.four.columns{
+
+        background-color: white;
+        border-radius: 15px;
+        box-shadow: 5px 10px 18px #888888;
+        width: 48%;
+        margin-left: 5px;
+        margin-right: 5px;
+        margin-bottom: 15px;
+
+    
+}
+
+.div_head{
+
+        background-color: #b3b3b3;
+        border-radius: 15px;
+        height: 50px;
+        margin-top: -10%; 
+
+}
+
+
+
 
 /* Grid
 –––––––––––––––––––––––––––––––––––––––––––––––––– */
 .container {
   position: relative;
-  width: 100%;
+  width: 90%;
   margin: 0 auto;
   padding: 0px 20px;
   box-sizing: border-box;}
@@ -108,25 +151,19 @@ td:last-child:not(.CalendarDay) {
   padding-right: 0; }
 
 
-/* Media Queries
+/* Media Queries - for desktop
 –––––––––––––––––––––––––––––––––––––––––––––––––– */
-/*
-Note: The best way to structure the use of media queries is to create the queries
-near the relevant code. For example, if you wanted to change the styles for buttons
-on small devices, paste the mobile query code up in the buttons section and style it
-there.
-*/
-
 
 /* Larger than mobile */
 @media (min-width: 1000px) {
 
    .container{
 
-            width: 100%;
-            padding: 0px 20px;
+            width: 90%;
+            padding: 0px 10px;
             margin: 0 auto;
     }
+    
     .six.columns{
 
             width: 48%;
@@ -134,6 +171,21 @@ there.
             margin-right: 11px;
             margin-left: 10px;
     
+    }
+    .four.columns{
+            width: 48%;
+            position: relative;
+            margin-left: 5px;
+            margin-right: 5px;
+
+    }
+    .five.columns{
+            
+            width: 50%;
+            margin-left: 300px;
+            margin-top: 50px;
+           
+            
     }
     .twelve.columns{
             width: 98%;
@@ -181,6 +233,14 @@ there.
             background-color: white;
             border-radius: 5px;
             box-shadow: 5px 10px 18px #888888;
+    }
+    .div_head{
+
+        background-color: grey;
+        border-radius: 15px;
+        height: 50px;
+        margin-top: -20px; 
+
     }
 
 

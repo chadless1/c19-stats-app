@@ -2,7 +2,6 @@
 
 import pandas as pd
 import numpy as np
-from datetime import datetime
 import datetime 
 
 import dash
@@ -21,12 +20,12 @@ date = df_states['date'].iloc[-1]
 date = date.strftime('%m-%d-%Y')
 
 # Dash App
-# CSS Style Sheet    
 
 app = dash.Dash(__name__)
 
 app.layout = html.Div(children=[
-       
+
+        # Header image and title
         html.Header(
             html.Div([ 
             
@@ -40,74 +39,245 @@ app.layout = html.Div(children=[
 
         html.Br(),
         
-        html.P('*Data as of {}*'.format(date), style={'font-style': 'italic', 'text-align': 'right', 'padding-right': '15px'}),
+        # Data Date
+        html.P('Data on Covid-19 Case Numbers and Deaths for the United States. Search by State and find out more about your area.'),
+       
+        html.P('Data is updated daily and is currently valid from *{}*'.format(date)),
 
-       # States
-        html.H3('Select State'),
-        
-        html.Div([
-        dcc.Dropdown(id='my-dropdown2',
-            
-            options=[{'label': i, 'value': i} for i in sorted(df_states['state'].unique())],
-            #multi=True,
-            value='Massachusetts',
-            searchable=False,
-        
-            ),
-        ], style={'margin': 'auto', 'width': '50%', 'text-align': 'center'}),
+        html.A('data source', href='https://github.com/nytimes/covid-19-data/'),
 
+        html.Br(),
+
+        html.A('code source', href='https://github.com/chadless1/c19-stats-app/'),
+
+        # Line break
         html.Br(),
         html.Hr(),
         html.Br(),
-
-        # Radio Button Graph
-        html.Div([
-
-                dcc.RadioItems(id='r_button',
-                    options=[
-                        {'label': 'Cases', 'value': 'CASES'},
-                        {'label': 'Deaths', 'value': 'DEATH'},
-                        {'label': 'Both', 'value': 'BOTH'}
-                     ],
-                    value='BOTH',
-                    labelStyle={'display': 'inline-block', 'margin-bottom': '10px', 'padding': '5px 5px'}
-                            )  
-
-                ],className='row', style={'text-align': 'left', 'margin-left': '90px'}),
         
-        # Main Content Div    
-
-        html.Div([
+        # Tabs
+        dcc.Tabs(id="tabs", value='tab-1', children=[
             
-            # graph div
-            html.Div([
+            dcc.Tab(label='USA', value='tab-1'),
+            dcc.Tab(label='Data By State', value='tab-2'),
 
-                dcc.Graph(id='graph_1')
+            ], style={'width': '90%', 'margin': 'auto'}),
+        # Tab contnent
+        html.Div(id='tabs-content'),
 
-                ],className='six columns'),
-            
-            # Data div
-            html.Div([
-
-                html.Div(id='total_cases'),
-
-                ],className='six columns'),
-
-            # second graph div
-            html.Div([
-
-                dcc.Graph(id='graph_2')
-
-                ],className='twelve columns'),
-            
-            ],className='container'),
+        
 
         ]) # main div tag
-
+           # End of app layout
 
 ###########################################################
 #                     CallBacks                           #
 ###########################################################
+
+
+# Tab Callbacks
+@app.callback(Output('tabs-content', 'children'),
+              [Input('tabs', 'value')])
+def render_content(tab):
+
+    today = df_states['date'].iloc[-1]
+
+    df_usa = df_states[df_states['date'] == today]
+    
+    usa_total_cases = df_usa['cases'].sum()
+    usa_total_deaths = df_usa['deaths'].sum()
+
+    usa_total_df = df_states[['cases','deaths']].groupby(df_states['date'])
+    usa_total_df = usa_total_df.sum()
+
+    usa_case_percent = (usa_total_df['cases'].iloc[-1] - usa_total_df['cases'].iloc[-5]) / usa_total_df['cases'].iloc[-5] * 100
+    usa_case_percent = round(usa_case_percent, 2)
+
+    usa_death_percent = (usa_total_df['deaths'].iloc[-1] - usa_total_df['deaths'].iloc[-5]) / usa_total_df['deaths'].iloc[-5] * 100
+    usa_death_percent = round(usa_death_percent, 2)
+
+
+
+    if tab == 'tab-1':
+        return html.Div([
+
+            html.Div([
+
+                html.Br(),
+                html.H3('USA Data'),
+                html.Br(),
+
+                ] ,className='row'),
+
+            # Main Div
+            html.Div([
+
+                # USA Cases
+                html.Div([
+
+                    html.Div([
+
+                        html.H4('Total Cases'),
+
+                        ],className='div_head'),
+
+                    html.H3('{:,}'.format(usa_total_cases)),
+
+
+                    ],className='four columns'),
+                
+                # USA Deaths
+                html.Div([
+
+                    html.Div([
+
+                        html.H4('Total Deaths'),
+
+                        ],className='div_head'),
+
+                    html.H3('{:,}'.format(usa_total_deaths)),
+
+
+                    ],className='four columns'),
+
+
+                # USA Case Change
+                html.Div([
+
+                    html.Div([
+
+                        html.H4('Case Change %'),
+
+                        ],className='div_head'),
+
+                    html.H3('{:,}%'.format(usa_case_percent)),
+                    html.P('over last 5 Days'),
+
+
+                    ],className='four columns'),
+                
+                # USA Death Change
+                html.Div([
+
+                    html.Div([
+
+                        html.H4('Death Change %'),
+
+                        ],className='div_head'),
+
+                    html.H3('{:,}%'.format(usa_death_percent)),
+                    html.P('over last 5 Days'),
+
+
+                    ],className='four columns'),
+
+
+               
+                ]),
+
+                html.Br(),
+
+                html.Div([
+
+                    dcc.Graph(
+
+                        figure={
+
+                            'data': [
+                                
+                                {'x': usa_total_df.index, 'y': usa_total_df['cases'].values, 'type': 'line', 'name': 'cases'},
+                                {'x': usa_total_df.index, 'y': usa_total_df['deaths'].values, 'type': 'line', 'name': 'deaths'},
+
+                                ],
+
+                            'layout': {
+                                'title': 'Cases & Deaths',
+                                #'height': 310,
+
+                                }}
+
+                        ),
+
+                    ],className='five columns'),
+
+
+            
+                    ],className='container')
+
+        #########################################################
+        # End Tab1
+    
+    elif tab == 'tab-2':
+        return html.Div([
+                               
+           # Tab 2 Content #
+           #################
+
+           # States
+            html.H3('Select State'),
+            
+            html.Div([
+            dcc.Dropdown(id='my-dropdown2',
+                
+                options=[{'label': i, 'value': i} for i in sorted(df_states['state'].unique())],
+                #multi=True,
+                value='Massachusetts',
+                searchable=False,
+            
+                ),
+            ], style={'margin': 'auto', 'width': '50%', 'text-align': 'center'}),
+
+            html.Br(),
+
+            # Radio Button Graph
+            html.Div([
+
+                    dcc.RadioItems(id='r_button',
+                        options=[
+                            {'label': 'Cases', 'value': 'CASES'},
+                            {'label': 'Deaths', 'value': 'DEATH'},
+                            {'label': 'Both', 'value': 'BOTH'}
+                         ],
+                        value='BOTH',
+                        labelStyle={'display': 'inline-block', 'margin-bottom': '10px', 'padding': '5px 5px'}
+                                )  
+
+                    ],className='row', style={'text-align': 'left', 'margin-left': '90px'}),
+            
+            # Main Content Div    
+
+            html.Div([
+                
+                # graph div
+                html.Div([
+
+                    dcc.Graph(id='graph_1')
+
+                    ],className='six columns'),
+                
+                # Data div
+                html.Div([
+
+                    html.Div(id='total_cases'),
+
+                    ],className='six columns'),
+
+                # second graph div
+                html.Div([
+
+                    dcc.Graph(id='graph_2')
+
+                    ],className='twelve columns'),
+                
+                ],className='container'),
+    ##########################################################
+
+
+
+
+        ])# end of Tab 2
+
+
 
 # State Graphs Callback and Functions
 # Case Graph
@@ -444,6 +614,9 @@ def update_figure(value, button):
 
 
 ########################################################
+
+
+app.config.suppress_callback_exceptions=True
 
 server = app.server
 

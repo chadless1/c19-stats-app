@@ -90,6 +90,8 @@ def render_content(tab):
     usa_total_df = df_states[['cases','deaths']].groupby(df_states['date'])
     usa_total_df = usa_total_df.sum()
 
+    usa_last = usa_total_df.tail()
+
     usa_case_percent = (usa_total_df['cases'].iloc[-1] - usa_total_df['cases'].iloc[-5]) / usa_total_df['cases'].iloc[-5] * 100
     usa_case_percent = round(usa_case_percent, 2)
 
@@ -192,6 +194,50 @@ def render_content(tab):
 
                             'layout': {
                                 'title': 'Cases & Deaths',
+                                #'height': 310,
+
+                                }}
+
+                        ),
+
+                    ],className='five columns'),
+
+                html.Div([
+
+                    dcc.Graph(
+
+                        figure={
+
+                            'data': [
+                                
+                                {'x': usa_last.index, 'y': usa_last['cases'].values, 'type': 'line', 'name': 'cases'},
+
+                                ],
+
+                            'layout': {
+                                'title': 'Cases Last 5 Days',
+                                #'height': 310,
+
+                                }}
+
+                        ),
+
+                    ],className='five columns'),
+
+                html.Div([
+
+                    dcc.Graph(
+
+                        figure={
+
+                            'data': [
+                                
+                                {'x': usa_last.index, 'y': usa_last['deaths'].values, 'type': 'line', 'name': 'cases', 'marker': {'color': 'orange'}},
+
+                                ],
+
+                            'layout': {
+                                'title': 'Deaths Last 5 Days',
                                 #'height': 310,
 
                                 }}

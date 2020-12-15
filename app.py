@@ -10,7 +10,10 @@ import dash_html_components as html
 from dash.dependencies import Input, Output
 
 # Read csv file from github
-df_states = pd.read_html('https://github.com/nytimes/covid-19-data/blob/master/us-states.csv')[0]
+#df_states = pd.read_html('https://github.com/nytimes/covid-19-data/blob/master/us-states.csv')[0]
+
+# Read data from csv file
+df_states = pd.read_csv('data/us-states_12.14.csv')
 
 # Create Date objects
 
@@ -42,7 +45,7 @@ app.layout = html.Div(children=[
         # Data Date
         html.P('Data on Covid-19 Case Numbers and Deaths for the United States. Search by State and find out more about your area.'),
        
-        html.P('Data is updated daily and is currently valid from *{}*'.format(date)),
+        html.P('Data is currently valid from *{}*'.format(date)),
 
         html.A('data source', href='https://github.com/nytimes/covid-19-data/'),
 

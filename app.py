@@ -13,7 +13,7 @@ from dash.dependencies import Input, Output
 #df_states = pd.read_html('https://github.com/nytimes/covid-19-data/blob/master/us-states.csv')[0]
 
 # Read data from csv file
-df_states = pd.read_csv('data/us-states_12.16.csv')
+df_states = pd.read_csv('data/us-states_12.20.csv')
 
 # Create Date objects
 

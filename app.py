@@ -104,8 +104,14 @@ def render_content(tab):
 
     usa_death_percent = (usa_total_df['deaths'].iloc[-1] - usa_total_df['deaths'].iloc[-5]) / usa_total_df['deaths'].iloc[-5] * 100
     usa_death_percent = round(usa_death_percent, 2)
+    
+    # New df for graphs
+    dff = df_states.groupby('date')[['cases', 'deaths']].sum()
+    
+    dff = dff.diff()
+    dff = dff.fillna(0)
 
-
+    dff_tail = dff.tail() 
 
     if tab == 'tab-1':
         return html.Div([
@@ -217,7 +223,7 @@ def render_content(tab):
 
                             'data': [
                                 
-                                {'x': usa_last.index, 'y': usa_last['cases'].values, 'type': 'line', 'name': 'cases'},
+                                {'x': dff_tail.index, 'y': dff_tail['cases'].values, 'type': 'bar', 'name': 'cases'},
 
                                 ],
 
@@ -239,7 +245,7 @@ def render_content(tab):
 
                             'data': [
                                 
-                                {'x': usa_last.index, 'y': usa_last['deaths'].values, 'type': 'line', 'name': 'cases', 'marker': {'color': 'orange'}},
+                                {'x': dff_tail.index, 'y': dff_tail['deaths'].values, 'type': 'bar', 'name': 'deaths', 'marker': {'color': 'orange'}},
 
                                 ],
 

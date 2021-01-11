@@ -200,8 +200,8 @@ def render_content(tab):
 
                             'data': [
                                 
-                                {'x': usa_total_df.index, 'y': usa_total_df['cases'].values, 'type': 'line', 'name': 'cases'},
-                                {'x': usa_total_df.index, 'y': usa_total_df['deaths'].values, 'type': 'line', 'name': 'deaths'},
+                                {'x': dff.index, 'y': dff['cases'].values, 'type': 'line', 'name': 'cases'},
+                                {'x': dff.index, 'y': dff['deaths'].values, 'type': 'line', 'name': 'deaths'},
 
                                 ],
 

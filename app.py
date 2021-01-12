@@ -7,7 +7,7 @@
 # BY: Chadless1
 #
 # Description: Pulls data from mytimes github and uses dash to display charts and graphs 
-# analyzing the data by the US and each individual s
+# analyzing the data by the US and each individual state
 #
 #
 

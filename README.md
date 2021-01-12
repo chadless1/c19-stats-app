@@ -1,10 +1,10 @@
 # c19-stats-app
 
-Covid-19 Data Tracker
+Covid-19 Dahsboard created using Dash to display Covid-19 Cases and Deaths
 
-Data is being updated manually as of 12/22/20
+Data is updated daily from nytimes github.
 
-Working on automatic updates and more stats
+Working on including more stats and analysis
 
 Data pulled from nytimes github\
 [github/nytimes](https://github.com/nytimes/covid-19-data)

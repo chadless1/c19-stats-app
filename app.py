@@ -1,4 +1,15 @@
 #!/usr/bin/nv python3
+#
+######################
+# Covid-19 Stats App #
+######################
+#
+# BY: Chadless1
+#
+# Description: Pulls data from mytimes github and uses dash to display charts and graphs 
+# analyzing the data by the US and each individual s
+#
+#
 
 import pandas as pd
 import numpy as np
@@ -30,6 +41,7 @@ date = date.strftime('%m-%d-%Y')
 
 app = dash.Dash(__name__)
 
+# Layout
 app.layout = html.Div(children=[
 
         # Header image and title
@@ -46,7 +58,7 @@ app.layout = html.Div(children=[
 
         html.Br(),
         
-        # Data Date
+        # Intro / Date / Links
         html.P('Data on Covid-19 Case Numbers and Deaths for the United States. Search by State and find out more about your area.'),
        
         html.P('Data is currently valid from *{}*'.format(date)),
@@ -69,6 +81,7 @@ app.layout = html.Div(children=[
             dcc.Tab(label='Data By State', value='tab-2'),
 
             ], style={'width': '90%', 'margin': 'auto'}),
+        
         # Tab contnent
         html.Div(id='tabs-content'),
 
@@ -85,8 +98,10 @@ app.layout = html.Div(children=[
 # Tab Callbacks
 @app.callback(Output('tabs-content', 'children'),
               [Input('tabs', 'value')])
-def render_content(tab):
 
+def render_content(tab):
+    
+    # US Case and Death Calculations
     today = df_states['date'].iloc[-1]
 
     df_usa = df_states[df_states['date'] == today]
@@ -99,6 +114,7 @@ def render_content(tab):
 
     usa_last = usa_total_df.tail()
 
+    # Calculate % Change in Cases and Death
     usa_case_percent = (usa_total_df['cases'].iloc[-1] - usa_total_df['cases'].iloc[-5]) / usa_total_df['cases'].iloc[-5] * 100
     usa_case_percent = round(usa_case_percent, 2)
 
@@ -113,6 +129,7 @@ def render_content(tab):
 
     dff_tail = dff.tail() 
 
+    # Tab 1
     if tab == 'tab-1':
         return html.Div([
 
@@ -191,7 +208,8 @@ def render_content(tab):
                 ]),
 
                 html.Br(),
-
+                
+                # Graphs
                 html.Div([
 
                     dcc.Graph(

@@ -80,7 +80,7 @@ app.layout = html.Div(children=[
             dcc.Tab(label='USA', value='tab-1'),
             dcc.Tab(label='Data By State', value='tab-2'),
 
-            ], style={'width': '90%', 'margin': 'auto'}),
+            ], style={'width': '90%', 'margin': 'auto', 'box-shadow': '0 1px 3px rgba(0,0,0,0.12), 0 1px 2px rgba(0,0,0,0.24)'}, colors={'border': 'grey', 'background': '#082255', 'primary': 'black'}),
         
         # Tab contnent
         html.Div(id='tabs-content'),
@@ -147,28 +147,17 @@ def render_content(tab):
                 # USA Cases
                 html.Div([
 
-                    html.Div([
-
-                        html.H4('Total Cases'),
-
-                        ],className='div_head'),
-
+                    html.H4('Total Cases'),
                     html.H3('{:,}'.format(usa_total_cases)),
-
 
                     ],className='four columns'),
                 
                 # USA Deaths
                 html.Div([
 
-                    html.Div([
-
-                        html.H4('Total Deaths'),
-
-                        ],className='div_head'),
+                    html.H4('Total Deaths'),
 
                     html.H3('{:,}'.format(usa_total_deaths)),
-
 
                     ],className='four columns'),
 
@@ -176,11 +165,7 @@ def render_content(tab):
                 # USA Case Change
                 html.Div([
 
-                    html.Div([
-
-                        html.H4('Case Change %'),
-
-                        ],className='div_head'),
+                    html.H4('Case Change %'),
 
                     html.H3('{:,}%'.format(usa_case_percent)),
                     html.P('over last 5 Days'),
@@ -191,18 +176,13 @@ def render_content(tab):
                 # USA Death Change
                 html.Div([
 
-                    html.Div([
-
-                        html.H4('Death Change %'),
-
-                        ],className='div_head'),
+                    html.H4('Death Change %'),
 
                     html.H3('{:,}%'.format(usa_death_percent)),
                     html.P('over last 5 Days'),
 
 
                     ],className='four columns'),
-
 
                
                 ]),
@@ -226,6 +206,9 @@ def render_content(tab):
                             'layout': {
                                 'title': 'Cases & Deaths',
                                 #'height': 310,
+                                'paper_bgcolor': '#082255',
+                                'plot_bgcolor': '#082255',
+                                'font': {'color': 'white'},
 
                                 }}
 
@@ -248,7 +231,10 @@ def render_content(tab):
                             'layout': {
                                 'title': 'Cases Last 5 Days',
                                 #'height': 310,
-
+                                'paper_bgcolor': '#082255',
+                                'plot_bgcolor': '#082255',
+                                'font': {'color': 'white'},
+ 
                                 }}
 
                         ),
@@ -270,7 +256,10 @@ def render_content(tab):
                             'layout': {
                                 'title': 'Deaths Last 5 Days',
                                 #'height': 310,
-
+                                'paper_bgcolor': '#082255',
+                                'plot_bgcolor': '#082255',
+                                'font': {'color': 'white'},
+  
                                 }}
 
                         ),
@@ -302,7 +291,7 @@ def render_content(tab):
                 searchable=False,
             
                 ),
-            ], style={'margin': 'auto', 'width': '50%', 'text-align': 'center'}),
+            ], style={'margin': 'auto', 'width': '50%', 'text-align': 'center', 'color': 'black'}),
 
             html.Br(),
 
@@ -390,9 +379,9 @@ def update_figure(value, button):
                  'layout': {
                     'title': 'Cases & Deaths',
                     'height': 310,
-                   # 'paper_bgcolor': '#e6e6ff',
-                   # 'plot_bgcolor': '#e6e6ff'
-                 
+                    'paper_bgcolor': '#082255',
+                    'plot_bgcolor': '#082255',
+                    'font': {'color': 'white'},
                 }}
 
 
@@ -419,8 +408,10 @@ def update_figure(value, button):
 
                     ],
                  'layout': {
-                    'title': 'Cases'
-                
+                    'title': 'Cases',
+                    'paper_bgcolor': '#082255',
+                    'plot_bgcolor': '#082255',
+                    'font': {'color': 'white'},
                 }}
 
 
@@ -447,8 +438,10 @@ def update_figure(value, button):
 
                     ],
                  'layout': {
-                    'title': 'Deaths'
-                
+                    'title': 'Deaths',
+                    'paper_bgcolor': '#082255',
+                    'plot_bgcolor': '#082255',
+                    'font': {'color': 'white'},
                 }}
 
 
@@ -616,9 +609,10 @@ def update_figure(value, button):
                     'height': '300',
                     'xaxis': {'tickformat': '%b %d, %Y'},
                     'xaxis': {'maxnumberoflabels': '5'},
-                   # 'paper_bgcolor': '#e6e6ff',
-                   # 'plot_bgcolor': '#e6e6ff'
-                 
+                    'paper_bgcolor': '#082255',
+                    'plot_bgcolor': '#082255',
+                    'font': {'color': 'white'} 
+                        
                 }}
 
 
@@ -651,6 +645,9 @@ def update_figure(value, button):
                     'title': 'Cases Last 5 Days', 
                     'xaxis': {'tickformat': '%b %d, %Y'},
                     'xaxis': {'maxnumberoflabels': '5'},
+                    'paper_bgcolor': '#082255',
+                    'plot_bgcolor': '#082255',
+                    'font': {'color': 'white'} 
                 }}
 
 
@@ -683,6 +680,10 @@ def update_figure(value, button):
                     'title': 'Deaths Last 5 Days', 
                     'xaxis': {'tickformat': '%b %d, %Y'},
                     'xaxis': {'maxnumberoflabels': '5'},
+                    'paper_bgcolor': '#082255',
+                    'plot_bgcolor': '#082255',
+                    'font': {'color': 'white'} 
+                
                 }}
 
 

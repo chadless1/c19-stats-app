@@ -20,11 +20,98 @@ import dash_core_components as dcc
 import dash_html_components as html
 from dash.dependencies import Input, Output
 
-# Read csv file from github
+import plotly.express as px
 
+# Read csv file from github
+# State Data
 url = 'https://raw.githubusercontent.com/nytimes/covid-19-data/master/us-states.csv'
 
 df_states = pd.read_csv(url)
+
+# Read csv file from github
+# County Data
+
+#state Codes
+us_state_abbrev = {
+    'Alabama': 'AL',
+    'Alaska': 'AK',
+    'American Samoa': 'AS',
+    'Arizona': 'AZ',
+    'Arkansas': 'AR',
+    'California': 'CA',
+    'Colorado': 'CO',
+    'Connecticut': 'CT',
+    'Delaware': 'DE',
+    'District of Columbia': 'DC',
+    'Florida': 'FL',
+    'Georgia': 'GA',
+    'Guam': 'GU',
+    'Hawaii': 'HI',
+    'Idaho': 'ID',
+    'Illinois': 'IL',
+    'Indiana': 'IN',
+    'Iowa': 'IA',
+    'Kansas': 'KS',
+    'Kentucky': 'KY',
+    'Louisiana': 'LA',
+    'Maine': 'ME',
+    'Maryland': 'MD',
+    'Massachusetts': 'MA',
+    'Michigan': 'MI',
+    'Minnesota': 'MN',
+    'Mississippi': 'MS',
+    'Missouri': 'MO',
+    'Montana': 'MT',
+    'Nebraska': 'NE',
+    'Nevada': 'NV',
+    'New Hampshire': 'NH',
+    'New Jersey': 'NJ',
+    'New Mexico': 'NM',
+    'New York': 'NY',
+    'North Carolina': 'NC',
+    'North Dakota': 'ND',
+    'Northern Mariana Islands':'MP',
+    'Ohio': 'OH',
+    'Oklahoma': 'OK',
+    'Oregon': 'OR',
+    'Pennsylvania': 'PA',
+    'Puerto Rico': 'PR',
+    'Rhode Island': 'RI',
+    'South Carolina': 'SC',
+    'South Dakota': 'SD',
+    'Tennessee': 'TN',
+    'Texas': 'TX',
+    'Utah': 'UT',
+    'Vermont': 'VT',
+    'Virgin Islands': 'VI',
+    'Virginia': 'VA',
+    'Washington': 'WA',
+    'West Virginia': 'WV',
+    'Wisconsin': 'WI',
+    'Wyoming': 'WY'
+}
+
+url2 = 'https://raw.githubusercontent.com/nytimes/covid-19-data/master/us-counties.csv'
+
+df = pd.read_csv(url2)
+
+# Filter for last date
+today = df['date'].iloc[-1]
+
+df = df[df['date'] == today]
+
+df = df.replace(us_state_abbrev)
+
+df = df.groupby('state')['cases'].sum()
+
+# Plot
+fig = px.choropleth(df, locations=df.index,
+        scope='usa',
+        color='cases',
+        locationmode='USA-states',
+        range_color=(0,1000000),
+        title='Cases per State',
+        )
 
 # Create Date objects
 
@@ -33,8 +120,9 @@ df_states['date'] = pd.to_datetime(df_states['date'])
 date = df_states['date'].iloc[-1]
 date = date.strftime('%m-%d-%Y')
 
-# Dash App
-
+############
+# Dash App #
+############
 app = dash.Dash(__name__)
 
 # Layout
@@ -156,7 +244,13 @@ def render_content(tab):
                     html.H3('{:,}'.format(usa_total_deaths)),
 
                     ],className='four columns'),
+                
+                # Choropleth map
+                html.Div([
 
+                    dcc.Graph(figure=fig),
+
+                    ],className='twelve columns'),
 
                 # USA Case Change
                 html.Div([

@@ -21,14 +21,10 @@ import dash_html_components as html
 from dash.dependencies import Input, Output
 
 # Read csv file from github
-#df_states = pd.read_html('https://github.com/nytimes/covid-19-data/blob/master/us-states.csv')[0]
 
 url = 'https://raw.githubusercontent.com/nytimes/covid-19-data/master/us-states.csv'
 
 df_states = pd.read_csv(url)
-
-# Read data from csv file
-#df_states = pd.read_csv('data/us-states_01.04.csv')
 
 # Create Date objects
 

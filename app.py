@@ -9,8 +9,6 @@
 # Description: Pulls data from mytimes github and uses dash to display charts and graphs 
 # analyzing the data by the US and each individual state
 #
-#
-
 import pandas as pd
 import numpy as np
 import datetime 
@@ -19,7 +17,6 @@ import dash
 import dash_core_components as dcc
 import dash_html_components as html
 from dash.dependencies import Input, Output
-
 import plotly.express as px
 
 # Read csv file from github
@@ -169,15 +166,12 @@ app.layout = html.Div(children=[
         # Tab contnent
         html.Div(id='tabs-content'),
 
-        
-
         ]) # main div tag
            # End of app layout
 
 ###########################################################
 #                     CallBacks                           #
 ###########################################################
-
 
 # Tab Callbacks
 @app.callback(Output('tabs-content', 'children'),
@@ -260,7 +254,6 @@ def render_content(tab):
                     html.H3('{:,}%'.format(usa_case_percent)),
                     html.P('over last 5 Days'),
 
-
                     ],className='four columns'),
                 
                 # USA Death Change
@@ -274,7 +267,6 @@ def render_content(tab):
 
                     ],className='four columns'),
 
-               
                 ]),
 
                 html.Br(),
@@ -426,24 +418,16 @@ def render_content(tab):
                     ],className='twelve columns'),
                 
                 ],className='container'),
-    ##########################################################
-
-
-
-
         ])# end of Tab 2
 
-
-
+    ##########################################################
 # State Graphs Callback and Functions
 # Case Graph
 
 @app.callback(Output('graph_1', 'figure'),
         [Input('my-dropdown2', 'value'), Input('r_button', 'value')])
 
-
 def update_figure(value, button):
-
 
     if button == 'BOTH':
 
@@ -459,7 +443,6 @@ def update_figure(value, button):
 
         figure={
                 
-                
                 'data': [
                     
                     {'x': df4.index, 'y': df4, 'type': 'line', 'name': 'cases'},
@@ -473,7 +456,6 @@ def update_figure(value, button):
                     'plot_bgcolor': '#082255',
                     'font': {'color': 'white'},
                 }}
-
 
         return(figure)
 
@@ -491,7 +473,6 @@ def update_figure(value, button):
 
         figure={
                 
-                
                 'data': [
                     
                     {'x': df4.index, 'y': df4, 'type': 'line', 'name': 'cases'},
@@ -503,7 +484,6 @@ def update_figure(value, button):
                     'plot_bgcolor': '#082255',
                     'font': {'color': 'white'},
                 }}
-
 
         return(figure)
     
@@ -521,7 +501,6 @@ def update_figure(value, button):
 
         figure={
                 
-                
                 'data': [
                     
                     {'x': df5.index, 'y': df5, 'type': 'line', 'name': 'deaths', 'marker': {'color': 'orange'}},
@@ -534,10 +513,7 @@ def update_figure(value, button):
                     'font': {'color': 'white'},
                 }}
 
-
         return(figure)
-
-
 
 @app.callback(Output('total_cases', 'children'),
         [Input('my-dropdown2', 'value')])
@@ -571,7 +547,6 @@ def update_contetnt(value):
     average_30_cases = dff2.tail(30)
     average_30_cases = round(average_30_cases.mean())
 
-
     # Death Calculations
     dff3 = dff.set_index('date')
     dff3 = dff3['deaths'].diff()
@@ -591,7 +566,6 @@ def update_contetnt(value):
 
     average_30_deaths = dff3.tail(30)
     average_30_deaths = round(average_30_deaths.mean())
-
 
     return(
             # HTML TABLE
@@ -636,13 +610,11 @@ def update_contetnt(value):
 
                 ] ),
 
-
                 html.Tr([
                     # Change 5 Days
                     html.Td('% Change 5 Days:'),
                     html.Td('{:,}%'.format(case_percent)),
                     html.Td('{:,}%'.format(death_percent)),
-
                 ] ),
                 
                 html.Tr([
@@ -653,12 +625,7 @@ def update_contetnt(value):
 
                 ] ),
 
-
-
                 ] ),
-
-
-
             )
 
 # Graph 2
@@ -687,7 +654,6 @@ def update_figure(value, button):
 
         figure={
                 
-                
                 'data': [
                     
                     {'x': df4.index, 'y': df4, 'type': 'bar', 'name': 'cases'},
@@ -704,7 +670,6 @@ def update_figure(value, button):
                     'font': {'color': 'white'} 
                         
                 }}
-
 
         return(figure)
 
@@ -723,7 +688,6 @@ def update_figure(value, button):
         df4 = df4.tail()
     
         figure={
-                
                 
                 'data': [
                     
@@ -759,7 +723,6 @@ def update_figure(value, button):
 
         figure={
                 
-                
                 'data': [
                     
                     {'x': df5.index, 'y': df5, 'type': 'bar', 'name': 'deaths', 'marker': {'color': 'orange'}},
@@ -776,13 +739,9 @@ def update_figure(value, button):
                 
                 }}
 
-
         return(figure)
 
-
-
 ########################################################
-
 
 app.config.suppress_callback_exceptions=True
 
@@ -790,6 +749,3 @@ server = app.server
 
 if __name__ == '__main__':
     app.run_server(debug=True)
-
-
-
